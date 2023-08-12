@@ -19,11 +19,18 @@ export class AwsCdkTypescriptStack extends cdk.Stack {
       }]}
     })
 
+    const duration = new cdk.CfnParameter(this,'duration',{
+      default:7,
+      minValue:1,
+      maxValue:13,
+      type:'Number'
+    })
+
     // Type L2
     const myL2Bucket=new Bucket(this,'MyL2Bucket',{
       // bucketName:'MyL2BucketName'
       lifecycleRules: [{
-        expiration: cdk.Duration.days(4)
+        expiration: cdk.Duration.days(duration.valueAsNumber)
       }]
     })
 
